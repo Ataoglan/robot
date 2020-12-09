@@ -47,7 +47,9 @@ public class RobotApplication {
 
 		inputs.setRobotInputs(robotInputs);
 
-		Space space = new Space(inputs);
+		Space space = new Space();
+		space.createSpace(inputs.getGridX(), inputs.getGridY());
+		space.createRobots(inputs.getRobotInputs());
 		space.runCommands();
 	}
 

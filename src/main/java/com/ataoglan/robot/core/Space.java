@@ -2,7 +2,7 @@ package com.ataoglan.robot.core;
 
 
 
-import com.ataoglan.robot.input.Inputs;
+import com.ataoglan.robot.input.RobotInput;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,20 +12,15 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Space {
-    final Object[][] space;
-    final Map<Robot, List<Action>> robotWithActions;
+    Object[][] space;
+    Map<Robot, List<Action>> robotWithActions;
 
-    public Space(Inputs inputs) {
-        this.space = createSpace(inputs.getGridX() + 1, inputs.getGridY() + 1);
-        this.robotWithActions = new HashMap<>();
-        inputs.getRobotInputs()
-                .forEach(ri -> {
-                    Robot r = new Robot(ri.getRobotId(), ri.getX(), ri.getY(), ri.getDirection());
-                    locateRobotInSpace(r, ri.getX(), ri.getY());
-                    Stream<Character> cStream = IntStream.range(0, ri.getCommands().toCharArray().length).mapToObj(i -> ri.getCommands().toCharArray()[i]);
-                    List<Action> actions = cStream.map(c -> Character.toString(c)).map(Action::valueOf).collect(Collectors.toList());
-                    robotWithActions.put(r, actions);
-                });
+    public Object[][] getSpace() {
+        return space;
+    }
+
+    public Map<Robot, List<Action>> getRobotWithActions() {
+        return robotWithActions;
     }
 
     public void runCommands() {
@@ -47,26 +42,38 @@ public class Space {
         }
     }
 
-    private Object[][] createSpace(int xMax, int yMax) {
-        Object[][] space = new Object[xMax][yMax];
+    public void createSpace(int xMax, int yMax) {
+        this.space = new Object[xMax+1][yMax+1];
         for (int x = 0; x < space.length; x++) {
             for (int y = 0; y < space[x].length; y++) {
-                space[x][y] = String.format("%5s", ".");//"(" + x + "," + y + ")";
+                space[x][y] = String.format("%5s", ".");
             }
         }
-        return space;
     }
 
     private void locateRobotInSpace(Robot robot, int xCoordinate, int yCoordinate) {
         space[xCoordinate][yCoordinate] = robot;
     }
 
-    private void printSpace() {
-        for (int y = space.length - 1; y >= 0; y--) {
-            for (int x = 0; x < space[y].length; x++) {
-                System.out.print(space[x][y]);
-            }
-            System.out.println();
-        }
+    public void createRobots(List<RobotInput> getRobotInputs){
+        robotWithActions = new HashMap<>();
+        getRobotInputs
+                .forEach(ri -> {
+                    Robot r = new Robot(ri.getRobotId(), ri.getX(), ri.getY(), ri.getDirection());
+                    locateRobotInSpace(r, ri.getX(), ri.getY());
+                    Stream<Character> cStream = IntStream.range(0, ri.getCommands().toCharArray().length).mapToObj(i -> ri.getCommands().toCharArray()[i]);
+                    List<Action> actions = cStream.map(c -> Character.toString(c)).map(Action::valueOf).collect(Collectors.toList());
+                    robotWithActions.put(r, actions);
+                });
     }
+
+    public String ozcan(int x){
+        if (x>5){
+            return "u";
+        }else if (x<5){
+            return "a";
+        }
+        return "x";
+    }
+
 }

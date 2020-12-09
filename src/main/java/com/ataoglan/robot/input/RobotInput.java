@@ -7,6 +7,16 @@ public class RobotInput {
     private String direction;
     private String commands;
 
+    public RobotInput(){}
+
+    public RobotInput(int robotId, int x, int y, String direction, String commands) {
+        this.robotId = robotId;
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
+        this.commands = commands;
+    }
+
     public int getRobotId() {
         return robotId;
     }

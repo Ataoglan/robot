@@ -32,12 +32,6 @@ public class Robot {
         return Objects.hash(id);
     }
 
-    public void locate(int xCoordinate, int yCoordinate, Direction direction) {
-        getCoordinate().setX(xCoordinate);
-        getCoordinate().setY(yCoordinate);
-        getCoordinate().setDirection(direction);
-    }
-
     public void changeDirection(Action action) {
         getCoordinate().setDirection(getCoordinate().getDirection().getDirectionFromAction(action));
     }
