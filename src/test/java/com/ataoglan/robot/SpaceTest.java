@@ -56,25 +56,4 @@ public class SpaceTest {
     void runCommands(){
         space.runCommands();
     }
-
-    @Test
-    void givenNumberGreaterThan5_thenReturnU(){
-        String result = space.ozcan(10);
-
-        Assert.assertEquals("u", result);
-    }
-
-    @Test
-    void givenNumberLessThan5_thenReturnA(){
-        String result = space.ozcan(4);
-
-        Assert.assertEquals("a", result);
-    }
-
-    @Test
-    void givenNumberEquals5_thenReturnX(){
-        String result = space.ozcan(5);
-
-        Assert.assertEquals("x", result);
-    }
 }
