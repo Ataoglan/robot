@@ -52,8 +52,4 @@ public class SpaceTest {
                         .map(entry -> entry.getKey()).map(r -> r.getCoordinate().getDirection()).findFirst().orElse(null));
     }
 
-    @Test
-    void runCommands(){
-        space.runCommands();
-    }
 }
