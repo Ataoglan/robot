@@ -67,13 +67,4 @@ public class Space {
                 });
     }
 
-    public String ozcan(int x){
-        if (x>5){
-            return "u";
-        }else if (x<5){
-            return "a";
-        }
-        return "x";
-    }
-
 }
